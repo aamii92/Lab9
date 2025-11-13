@@ -17,6 +17,13 @@ class Employee: public Person{
     string companyID;
     string title;
     int startDate;
+    Employee(string name, string ssnum, int age, string companyID, string title, int startDate) : Person(name, ssnum, age),s(nullptr)
+    {
+        this->companyID = companyID;
+        this->title = title;
+        this->startDate = startDate;
+
+    }
     string getCompanyID(string companyID){
         return companyID;
     }
