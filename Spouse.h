@@ -5,12 +5,12 @@
 using namespace std;
 class Spouse: public Person{
     public:
-    int annDate;
-    Spouse(string name, string ssnum, int age, int annDate) 
+    string annDate;
+    Spouse(string name, string ssnum, int age, string annDate) 
         :Person(name, ssnum, age){
         this->annDate = annDate;
     }
-    int getAnndate(){
+    string getAnndate(){
         return annDate;
     }
     void setAnndate(int annDate){

@@ -16,21 +16,30 @@ class Employee: public Person{
     public:
     string companyID;
     string title;
-    int startDate;
-    Employee(string name, string ssnum, int age, string companyID, string title, int startDate) : Person(name, ssnum, age),s(nullptr)
-    {
-        this->companyID = companyID;
-        this->title = title;
-        this->startDate = startDate;
-
+    string startDate;
+    Employee(string name, string ssnum, int age, string companyID, string title, string startDate, Division div)
+            :Person(name, ssnum, age), d(div),s(nullptr){
+                this->companyID = companyID;
+                this->title = title;
+                this-> startDate = startDate;
+                this->d = div;
+            }
+    void add_child(const Child& new_child) {
+        children.push_back(new_child);
     }
+    void add_job_description(JobDescription* job_ptr) {
+        if (job_ptr != nullptr) {
+            jds.push_back(job_ptr);
+        }
+    }
+
     string getCompanyID(string companyID){
         return companyID;
     }
     string getTitle(){
         return title;
     }
-    int getstartDate(){
+    string getstartDate(){
         return startDate;
     }
     void setCompanyID(string companyID){
@@ -40,7 +49,7 @@ class Employee: public Person{
     void setTitle(string title){
         this->title =  title;
     }
-    void setstartDate(int startDate){
+    void setstartDate(string startDate){
         this->startDate = startDate;
     }
 
