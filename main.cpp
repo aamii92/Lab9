@@ -20,9 +20,12 @@ int main(){
     Child child_c("Emma", "C1003", 12, "Gaming Console");
     Spouse spouse_a("Elizabeth", "S5001", 38, "2010-06-15");
     Spouse spouse_b("David", "S5002", 45, "2005-11-01");
-    Spouse spouse_a("janny", "S5003", 32, "2018-06-15");
+    Spouse spouse_c("janny", "S5003", 32, "2018-06-15");
     emp1.add_child(child_a);
     emp1.add_child(child_b);
     emp3.add_child(child_c);
+    emp1.set_spouse(&spouse_a);
+    emp2.set_spouse(&spouse_b);
+    emp3.set_spouse(&spouse_c);
     
 }

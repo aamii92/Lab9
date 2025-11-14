@@ -32,6 +32,11 @@ class Employee: public Person{
             jds.push_back(job_ptr);
         }
     }
+    void set_spouse(Spouse *spouse_ptr) {
+    // Гаднаас ирсэн Spouse-ийн хаягийг s-д онооно.
+    // Энэ нь 0..1 харилцааг (нэгээс илүү Spouse байхгүйг) баталгаажуулна.
+        this->s = spouse_ptr; 
+    }
 
     string getCompanyID(string companyID){
         return companyID;

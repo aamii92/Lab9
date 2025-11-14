@@ -4,15 +4,15 @@
 using namespace std;
 class Division{
     public:
-    string name;
+    string divisionName;
     Division(string name){
-        this->name = name;
+        this->divisionName = name;
     }
     string getDivisionName(){
-        return name;
+        return divisionName;
     }
     void setDivisionName(string name){
-        this->name = name;
+        this->divisionName = name;
     }
 };
 #endif
