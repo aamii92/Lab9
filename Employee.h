@@ -37,6 +37,9 @@ class Employee: public Person{
     // Энэ нь 0..1 харилцааг (нэгээс илүү Spouse байхгүйг) баталгаажуулна.
         this->s = spouse_ptr; 
     }
+    void print_data(){
+        
+    }
 
     string getCompanyID(string companyID){
         return companyID;
