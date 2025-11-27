@@ -38,7 +38,7 @@ public:
         }
         size++;
     }
-}
+
 
     // Индекс дээр элементийг оруулах
     void insert(T t, int index) {
@@ -60,7 +60,39 @@ public:
         }
         size++;
     }
+    T& get(int index) {
+        if (index < 0 || index >= size)                 // Хэрвээ индекс буруу бол
+        throw out_of_range("Index out of range");   // алдаа шиднэ
 
+    Node* cur = head;                               // cur заагчийг эхний элемент рүү заана
+    for (int i = 0; i < index; i++)                 // index хүртэл давтаж гүйх
+        cur = cur->next;                            // дараагийн Node руу шилжинэ
+
+    return cur->data;
+    }
+    void deleteNode(int index){
+        if (index < 0 || index >= size)                 // Индекс буруу бол юу ч хийхгүй буцах
+        return;
+
+    if (index == 0) {                               // Хэрвээ эхний элементийг устгаж байвал
+        Node* temp = head;                          // head-г temp-д хадгална
+        head = head->next;                          // head-г дараагийн элемент рүү шилжүүлнэ
+        delete temp;                                // хуучин эхний Node-ийг устгана
+    } else {
+        Node* cur = head;                           // cur заагч эхлэлд заана
+        for (int i = 0; i < index - 1; i++)         // Устгах Node-оос өмнөх хүртэл давтах
+            cur = cur->next;
+
+        Node* temp = cur->next;                     // temp = устгах гэж буй Node
+        cur->next = temp->next;                     // өмнөх Node дараагийн Node руу залгана
+        delete temp;                                // устгаж байна
+    }
+    size--;            
+    }
+    int length(){
+        return size;
+    }
+};
 
 // Үндсэн класс (TwoDShape)
 class TwoDShape {
@@ -109,9 +141,11 @@ class Triangle : public TwoDShape {
 };
 int main(){
     srand(time(0));
+    // n-ийг 20-30-ийн хооронд санамсаргүйгээр сонгох
+    int n = (rand() % 11) + 20;
+
     LinkedList<TwoDShape*> shapes;
-    int n = shapes.getCapacity();
-    const double MAX_RADIUS = 50.0;
+    
     for(int i=0; i<n; i++){
         double rand_val = (double)(rand() % 50) + 1.0;
         if(i%3==0) {shapes.add(new Circle(i+1, rand_val)); }

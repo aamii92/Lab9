@@ -22,7 +22,6 @@ class Employee: public Person{
                 this->companyID = companyID;
                 this->title = title;
                 this-> startDate = startDate;
-                this->d = div;
             }
     void add_child(const Child& new_child) {
         children.push_back(new_child);
@@ -37,10 +36,44 @@ class Employee: public Person{
     // Энэ нь 0..1 харилцааг (нэгээс илүү Spouse байхгүйг) баталгаажуулна.
         this->s = spouse_ptr; 
     }
-    void print_data(){
-        
-    }
+    // employee-ийн мэдээллийг хэвлэж байна.
+    void get_employee_info() const {
+        cout<<"******************************************"<<endl;
+        cout<<"Name: " << getName() << ", " << "SSN: " << getSSnum() <<  endl;
+        cout << "Age: " << getAge() <<", "<< "Company ID: " << companyID<< ", "<<"Title: "<<title<<endl;
+        cout<<"start date: " <<startDate <<", "<<"Division: "<<d.divisionName<<endl;
 
+        cout<<"\n--- Spouse Information ---\n";
+        if(s!=nullptr){
+            cout<<"Name: "<<s->name <<", SSN: "<<s->ssnum<<", Age: "<<s->age<<endl;
+            cout<<" AnnDate: "<<s->annDate<<endl;
+        } else cout<<" Spouse: None" <<endl;
+
+        cout<<"\n--- Children information (" << children.size()<<") ---\n";
+        if (children.empty()){
+            cout<<"children: none"<<endl;
+        } else {
+            int count=1;
+            for (const auto& child: children){
+                cout<<"child " << count++ <<": " <<child.name <<"(Age: "<<child.age<< ")" <<endl;
+                cout<<"favToy: "<<child.favToy<<endl;
+            }
+        }
+
+        cout<<"\n--- job descriptions (" << jds.size()<<") ---\n";
+        if(jds.empty()){
+            cout<<" job descriptions: none"<<endl;
+        } else {
+            int count = 1;
+            for(const auto& job_ptr : jds){
+                if(job_ptr != nullptr){
+                    cout << "JD" << count++ <<": " <<job_ptr->description<<endl;
+                } else cout<< "JD" << count++ <<": Invalid/ Null pointer found."<<endl;
+            }
+        }
+        cout<<endl;
+
+    }
     string getCompanyID(string companyID){
         return companyID;
     }
