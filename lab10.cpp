@@ -10,7 +10,56 @@
 
 using namespace std;
 
+template <typename T>
+class LinkedList {
+private:
+    struct Node {
+        T data;         // Элементийг хадгалах
+        Node* next;     // Дараагийн элементийг заах холбоос
+    };
 
+    Node* head;      // Жагсаалтын эхний элемент
+    int size;        // Жагсаалтын урт
+
+public:
+    LinkedList() : head(nullptr), size(0) {}
+
+    // Элементийг сүүлд нь нэмэх
+    void add(T t) {
+        Node* newNode = new Node{t, nullptr};
+        if (!head) {
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next) {
+                temp = temp->next;
+            }
+            temp->next = newNode;
+        }
+        size++;
+    }
+}
+
+    // Индекс дээр элементийг оруулах
+    void insert(T t, int index) {
+        if (index < 0 || index > size) {
+            cout << "Invalid index!" << endl;
+            return;
+        }
+        Node* newNode = new Node{t, nullptr};
+        if (index == 0) {
+            newNode->next = head;
+            head = newNode;
+        } else {
+            Node* temp = head;
+            for (int i = 0; i < index - 1; ++i) {
+                temp = temp->next;
+            }
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+        size++;
+    }
 
 
 // Үндсэн класс (TwoDShape)
@@ -60,7 +109,7 @@ class Triangle : public TwoDShape {
 };
 int main(){
     srand(time(0));
-    Mylist<TwoDShape*> shapes;
+    LinkedList<TwoDShape*> shapes;
     int n = shapes.getCapacity();
     const double MAX_RADIUS = 50.0;
     for(int i=0; i<n; i++){
