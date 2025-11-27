@@ -1,0 +1,4 @@
+template <typename T>
+int LinkedList<T>::length() {                       // length() — жагсаалтын уртыг буцаана
+    return size;                                    // шууд size хувьсагчийг буцаана
+}
