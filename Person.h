@@ -12,13 +12,13 @@ class Person{
         this->ssnum = ssnum;
         this->age = age;
     }
-    string getName(){
+    string getName() const {
         return name;
     }
-    string getSSnum(){
+    string getSSnum() const {
         return ssnum;
     }
-    int getAge(){
+    int getAge() const {
         return age;
     }
     void setName(string name){

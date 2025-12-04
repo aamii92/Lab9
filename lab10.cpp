@@ -5,24 +5,34 @@
 #include <cstdlib>
 #include <ctime>   
 #include<algorithm>
-#include <random> // Random тоо үүсгэхэд илүү найдвартай
- // std::min, std::swap
+#include <random> 
+
 
 using namespace std;
 
 template <typename T>
 class LinkedList {
 private:
+    //  жагсаалтын нэг элемент (Node), 2 гишүүн өгөгдөлтэй
     struct Node {
-        T data;         // Элементийг хадгалах
+        T data;         
         Node* next;     // Дараагийн элементийг заах холбоос
     };
 
-    Node* head;      // Жагсаалтын эхний элемент
-    int size;        // Жагсаалтын урт
+    Node* head;      
+    int size;       
 
 public:
     LinkedList() : head(nullptr), size(0) {}
+    // Деструктор: Жагсаалтыг устгахдаа санах ойг суллана
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next_node = current->next;
+            delete current;
+            current = next_node;
+        }
+    }
 
     // Элементийг сүүлд нь нэмэх
     void add(T t) {
@@ -31,6 +41,7 @@ public:
             head = newNode;
         } else {
             Node* temp = head;
+
             while (temp->next) {
                 temp = temp->next;
             }
@@ -61,12 +72,13 @@ public:
         size++;
     }
     T& get(int index) {
-        if (index < 0 || index >= size)                 // Хэрвээ индекс буруу бол
-        throw out_of_range("Index out of range");   // алдаа шиднэ
+        if (index < 0 || index >= size)                 
+        throw out_of_range("Index out of range");   
 
-    Node* cur = head;                               // cur заагчийг эхний элемент рүү заана
-    for (int i = 0; i < index; i++)                 // index хүртэл давтаж гүйх
-        cur = cur->next;                            // дараагийн Node руу шилжинэ
+    // cur заагчийг эхний элемент рүү зааж index хүртэл давтаж гүйнэ
+    Node* cur = head;                               
+    for (int i = 0; i < index; i++)                 
+        cur = cur->next;                            
 
     return cur->data;
     }
@@ -89,6 +101,7 @@ public:
     }
     size--;            
     }
+    // жагсаалтын уртыг буцаана
     int length(){
         return size;
     }
@@ -97,10 +110,10 @@ public:
 // Үндсэн класс (TwoDShape)
 class TwoDShape {
 protected:
-    string name; // Нэрийг private/protected болгож автоматаар онооно
+    string name; 
 public:
     TwoDShape(int index, const string& type) {
-        // Объектын нэрийг индекс болон төрлөөр автоматаар үүсгэх
+        // Объектын нэрийг индекс болон төрлөөр автоматаар үүсгэж өгнө.
         name = type + "_" + to_string(index);
     }
     
@@ -111,7 +124,6 @@ public:
     // Нэрийг буцаах функц
     string getName() const { return name; }
 };
-
 // --- Circle класс ---
 class Circle : public TwoDShape {
 private:
@@ -119,9 +131,9 @@ private:
 public:
     // Зөвхөн index болон radius-ийг авна
     Circle(int index, double r) : TwoDShape(index, "Circle"), radius(r) {}
+    // virtual Area() функцийг override хийж байна.
     double Area() const override { return 3.14 * radius * radius; }
 };
-
 // --- Square класс ---
 class Square : public TwoDShape {
 private:
@@ -132,6 +144,7 @@ public:
     double Area() const override { return side * side; }
 
 };
+// --- Triangle класс---
 class Triangle : public TwoDShape {
     private:
     double side;
@@ -144,8 +157,10 @@ int main(){
     // n-ийг 20-30-ийн хооронд санамсаргүйгээр сонгох
     int n = (rand() % 11) + 20;
 
+    // TwoDShape* заагчуудыг хадгална
     LinkedList<TwoDShape*> shapes;
-    
+
+    // талын уртыг санамсаргүйгээр оноож, элементүүдийг жагсаалтын төгсгөлд нэмж байна
     for(int i=0; i<n; i++){
         double rand_val = (double)(rand() % 50) + 1.0;
         if(i%3==0) {shapes.add(new Circle(i+1, rand_val)); }
@@ -153,6 +168,7 @@ int main(){
         else  { shapes.add(new Triangle(i+1, rand_val)); }
 
     }
+    // объектуудыг талбайгаар нь эрэмбэлэх
     for(int i=0; i<n; i++){
         for(int j=i+1; j<n; j++){
             if(shapes.get(i)->Area() > shapes.get(j)->Area()) {
@@ -162,10 +178,10 @@ int main(){
             }
         }
     }
-    cout<<"random тооний объект үүсгэж талбайгаар эрэмбэлэн хэвлэе";
-    for(int i=0; i<n; i++){
+    cout << "random тооний объект үүсгэж талбайгаар эрэмбэлэн хэвлэе" << endl;
+    for( int i=0; i<n; i++){
         const TwoDShape* currentShape = shapes.get(i);
-        cout<< "index ["<< i <<"]" << "name: "<< currentShape->getName() << "area: " <<currentShape->Area()<<endl;
+        cout<< "index ["<< i <<"], " << "name: "<< currentShape->getName() << ", area: " <<currentShape->Area()<<endl;
     }
 
     
